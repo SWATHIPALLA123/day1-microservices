@@ -1,27 +1,33 @@
 package com.example.userservice.service;
 
-import java.util.Map;
-
-import org.springframework.stereotype.Service;
-
+import com.example.userservice.dto.UserRequest;
 import com.example.userservice.dto.UserResponse;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    private final Map<Long, UserResponse> users = Map.of(
-        1L, new UserResponse(1L, "Swathi", "swathi@gmail.com"),
-        2L, new UserResponse(2L, "Rahul", "rahul@gmail.com"),
-        3L, new UserResponse(3L, "Priya", "priya@gmail.com")
-    );
+    public UserResponse getUser() {
+        return new UserResponse(
+                1L,
+                "Swathi",
+                "swathi@example.com"
+        );
+    }
 
     public UserResponse getUserById(Long id) {
-        UserResponse user = users.get(id);
+        return new UserResponse(
+                id,
+                "Swathi",
+                "swathi@example.com"
+        );
+    }
 
-        if (user == null) {
-            throw new UserNotFoundException("User not found with id: " + id);
-        }
-
-        return user;
+    public UserResponse createUser(UserRequest userRequest) {
+        return new UserResponse(
+                userRequest.getId(),
+                userRequest.getName(),
+                userRequest.getEmail()
+        );
     }
 }

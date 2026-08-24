@@ -1,12 +1,11 @@
 package com.example.orderservice.controller;
 
-import org.springframework.http.ResponseEntity; 
-import org.springframework.web.bind.annotation.*;
-
 import com.example.orderservice.dto.OrderResponse;
 import com.example.orderservice.service.OrderNotFoundException;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.service.UserServiceException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -24,12 +23,20 @@ public class OrderController {
     }
 
     @ExceptionHandler(OrderNotFoundException.class)
-    public ResponseEntity<String> handleOrderNotFound(OrderNotFoundException ex) {
-        return ResponseEntity.status(404).body(ex.getMessage());
+    public ResponseEntity<String> handleOrderNotFound(
+            OrderNotFoundException ex) {
+
+        return ResponseEntity
+                .status(404)
+                .body(ex.getMessage());
     }
 
     @ExceptionHandler(UserServiceException.class)
-    public ResponseEntity<String> handleUserServiceError(UserServiceException ex) {
-        return ResponseEntity.status(503).body(ex.getMessage());
+    public ResponseEntity<String> handleUserServiceError(
+            UserServiceException ex) {
+
+        return ResponseEntity
+                .status(503)
+                .body(ex.getMessage());
     }
 }
